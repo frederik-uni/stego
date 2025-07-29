@@ -39,10 +39,10 @@ impl LSBStego {
 
 
         LSBStego {
-            image: im.to_rgba(),
+            image: im.to_rgba8(),
             width,
             height,
-            channels: <Rgba<u8> as Pixel>::channel_count() as usize,
+            channels: <Rgba<u8> as Pixel>::CHANNEL_COUNT as usize,
             current_height: 0,
             current_width: 0,
             current_channel: 0,
@@ -60,7 +60,7 @@ impl LSBStego {
             image: im,
             width,
             height,
-            channels: <Rgba<u8> as Pixel>::channel_count() as usize,
+            channels: <Rgba<u8> as Pixel>::CHANNEL_COUNT as usize,
             current_height: 0,
             current_width: 0,
             current_channel: 0,
@@ -218,7 +218,7 @@ impl LSBStego {
         let im = im.to_bgra();
         let (width, height) = im.dimensions();
 
-        let channels = <Rgba<u8> as Pixel>::channel_count() as u32;
+        let channels = <Rgba<u8> as Pixel>::CHANNEL_COUNT as u32;
 
         if self.width * self.height * (self.channels as u32) < width * height * channels {
             panic!("Carrier image not big enough to hold hidden image");
@@ -246,7 +246,7 @@ impl LSBStego {
 
     /// Decodes a hidden image from another image
     pub fn decode_image(&mut self) -> RgbaImage {
-        let channels = <Rgba<u8> as Pixel>::channel_count() as u32;
+        let channels = <Rgba<u8> as Pixel>::CHANNEL_COUNT as u32;
 
         let width = u32::from_str_radix(&self.read_bits(16), 2).unwrap();
         let height = u32::from_str_radix(&self.read_bits(16), 2).unwrap();
