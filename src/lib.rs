@@ -215,7 +215,7 @@ impl LSBStego {
 
     /// Encodes an image into another image
     pub fn encode_image(&mut self, im: DynamicImage) -> RgbaImage {
-        let im = im.to_bgra();
+        let im = im.to_rgba8();
         let (width, height) = im.dimensions();
 
         let channels = <Rgba<u8> as Pixel>::CHANNEL_COUNT as u32;
